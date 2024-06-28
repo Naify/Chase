@@ -3,7 +3,7 @@
 
 #include "ChaseAIPerceptionComponent.h"
 #include "AIController.h"
-#include "ChaseHelthActorComponent.h"
+#include "ChaseHealthActorComponent.h"
 #include "Perception/AISense_Sight.h"
 
 AActor* UChaseAIPerceptionComponent::GetClosestEnemy()
@@ -24,8 +24,8 @@ AActor* UChaseAIPerceptionComponent::GetClosestEnemy()
 
 	for (auto Actor : SawActors)
 	{
-		const auto ChaseHealthActor = Actor->FindComponentByClass<UChaseHelthActorComponent>();
-		if (!ChaseHealthActor) continue;
+		const auto ChaseHealthActorComponent = Actor->FindComponentByClass<UChaseHealthActorComponent>();
+		if (!ChaseHealthActorComponent) continue;
 		
 		const float Distance = (Actor->GetActorLocation() - Pawn->GetActorLocation()).Size();
 		if (Distance < BestDistance)
