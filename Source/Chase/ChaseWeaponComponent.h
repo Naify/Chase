@@ -15,18 +15,20 @@ class CHASE_API UChaseWeaponComponent : public UActorComponent
 public:	
 	UChaseWeaponComponent();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Components")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Shooting")
 	FName SocketName = "Muzzle_01";
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Shooting")
 	float TraceDistance = 1000.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Shooting")
+	float DamageAmount = 50.0f;
 	
 protected:
 	virtual void BeginPlay() override;
 
+	void DamageActor(const FHitResult& HitResult);
 public:	
 	void StartFire();
 	void EndFire();
-
-	void MakeShot();
 };

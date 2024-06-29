@@ -5,6 +5,7 @@
 #include "DrawDebugHelpers.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/World.h"
+#include "Kismet/GameplayStatics.h"
 
 UChaseWeaponComponent::UChaseWeaponComponent()
 {
@@ -18,22 +19,6 @@ void UChaseWeaponComponent::BeginPlay()
 
 void UChaseWeaponComponent::StartFire()
 {
-	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Start fire called!"));
-	// UE_LOG(LogTemp, Warning, TEXT("Start fire called!"));
-
-	MakeShot();
-}
-
-void UChaseWeaponComponent::EndFire()
-{
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("End fire called!"));
-	UE_LOG(LogTemp, Warning, TEXT("End fire called!"));
-}
-
-void UChaseWeaponComponent::MakeShot()
-{
-	if (!GetWorld()) return;	
-
 	USkeletalMeshComponent* Mesh = GetOwner()->FindComponentByClass<USkeletalMeshComponent>();
 	UCapsuleComponent* Capsule = GetOwner()->FindComponentByClass<UCapsuleComponent>();
 	if (!Mesh || !Capsule) return;
@@ -43,9 +28,6 @@ void UChaseWeaponComponent::MakeShot()
 	FVector TraceStart = SocketTransform.GetLocation();
 	FVector TraceEnd = TraceStart + Capsule->GetForwardVector() * TraceDistance;
 
-	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Red, false, 3.0f, 0, 3.0f);
-
-
 	FCollisionQueryParams CollisionPrams;
 	CollisionPrams.AddIgnoredActor(GetOwner());
 	FHitResult HitResult;
@@ -53,7 +35,26 @@ void UChaseWeaponComponent::MakeShot()
 
 	if (HitResult.bBlockingHit)
 	{
+		DamageActor(HitResult);
 		DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.0f, 32, FColor::Red, false, 3.0f);
+		DrawDebugLine(GetWorld(), TraceStart, HitResult.ImpactPoint, FColor::Red, false, 3.0f, 0, 3.0f);
+	}
+	else
+	{
+		DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Red, false, 3.0f, 0, 3.0f);
 	}
 }
 
+void UChaseWeaponComponent::EndFire()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("End fire called!"));
+	UE_LOG(LogTemp, Warning, TEXT("End fire called!"));
+}
+
+void UChaseWeaponComponent::DamageActor(const FHitResult& HitResult)
+{
+	APawn* DamagedActor = Cast<APawn>(HitResult.GetActor());
+	if (!DamagedActor) return;
+	
+	UGameplayStatics::ApplyDamage(DamagedActor, DamageAmount, GetOwner()->GetInstigatorController(), GetOwner(), nullptr);
+}
