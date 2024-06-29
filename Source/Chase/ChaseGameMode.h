@@ -19,7 +19,7 @@ struct FGameSettings
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="ChaseGame", meta=(ClampMin = 10.0, ClampMax = 50000.0))
 	float NPCSpeed;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="ChaseGame", meta=(ClampMin = 0, ClampMax = 10))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="ChaseGame", meta=(ClampMin = 1, ClampMax = 10))
 	int32 NPCNumberToSpawn;
 
 	//remember range in behavior tree in moveto chasing. default is 500 
@@ -46,6 +46,8 @@ public:
 	AChaseGameMode();
 
 	virtual void StartPlay() override;
+
+	
 	
 protected:
 
@@ -54,10 +56,10 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category= "Game")
 	TSubclassOf<APawn> AIPawnClass;
-	
-	UPROPERTY(EditDefaultsOnly, Category= "Game")
-	FGameSettings GameSettings;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Game")
+	FGameSettings GameSettings;
+	
 	UPROPERTY(EditDefaultsOnly, Category= "Game")
 	FVector SpawnPoint = FVector(-720.0f, 540.0f, 222.0f);
 	
