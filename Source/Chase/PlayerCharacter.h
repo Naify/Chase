@@ -6,24 +6,23 @@
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
 
+class UChaseWeaponComponent;
+
 UCLASS()
 class CHASE_API APlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	APlayerCharacter();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Components")
+	UChaseWeaponComponent* WeaponComponent;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+public:	
+	virtual void Tick(float DeltaTime) override;
 
 };
