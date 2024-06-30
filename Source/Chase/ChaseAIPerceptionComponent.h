@@ -17,4 +17,10 @@ class CHASE_API UChaseAIPerceptionComponent : public UAIPerceptionComponent
 public:
 	UFUNCTION(BlueprintCallable)
 	AActor* GetClosestEnemy();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="GameSettings")
+	bool RandomEnemy = false;
+	
+protected:
+	virtual void BeginPlay() override;
 };

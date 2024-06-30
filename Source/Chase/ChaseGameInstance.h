@@ -29,6 +29,9 @@ struct FGameSettings
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="ChaseGame", meta=(ClampMin = 10.0, ClampMax = 10000.0))
 	float NPCMaxHealth = 100.0f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="ChaseGame")
+	bool ChooseRandomEnemy = false;
 };
 
 UCLASS()
