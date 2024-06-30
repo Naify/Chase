@@ -29,6 +29,5 @@ protected:
 
 	void DamageActor(const FHitResult& HitResult);
 public:	
-	void StartFire();
-	void EndFire();
+	void StartFire(const FVector& EnemyLocation);
 };

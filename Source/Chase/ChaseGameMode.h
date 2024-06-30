@@ -18,6 +18,9 @@ public:
 	AChaseGameMode();
 
 	virtual void StartPlay() override;	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Game")
+	FGameSettings GameSettings;
 	
 protected:
 
@@ -25,10 +28,7 @@ protected:
 	TSubclassOf<AAIController> AIControllerClass;
 
 	UPROPERTY(EditDefaultsOnly, Category= "Game")
-	TSubclassOf<APawn> AIPawnClass;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Game")
-	FGameSettings GameSettings;
+	TSubclassOf<APawn> AIPawnClass;	
 	
 	UPROPERTY(EditDefaultsOnly, Category= "Game")
 	FVector SpawnPoint = FVector(-720.0f, 540.0f, 222.0f);

@@ -16,14 +16,22 @@ void UBTFireService::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemo
 	const auto Controller = OwnerComp.GetAIOwner();
 	const auto Blackboard = OwnerComp.GetBlackboardComponent();
 
-	const bool HasEnemyToShoot = Blackboard && Blackboard->GetValueAsObject(EnemyKey.SelectedKeyName);
+	AActor* EnemyActor = Cast<AActor>(Blackboard->GetValueAsObject(EnemyKey.SelectedKeyName));
+	bool HasEnemyToShoot = false;
+	FVector EnemyLocation = FVector::ZeroVector;
+	if (Blackboard && EnemyActor)
+	{
+		EnemyLocation = EnemyActor->GetActorLocation();
+		// Blackboard->SetValueAsVector(FName("EnemyLocation"), EnemyLocation);
+		HasEnemyToShoot = true;
+	}	
 
 	if (Controller)
 	{
 		const auto WeaponComponent = Controller->GetPawn()->FindComponentByClass<UChaseWeaponComponent>();
-		if (WeaponComponent)
+		if (WeaponComponent && HasEnemyToShoot)
 		{
-			HasEnemyToShoot ? WeaponComponent->StartFire() : WeaponComponent->EndFire();
+			WeaponComponent->StartFire(EnemyLocation);
 		}
 	}
 	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);

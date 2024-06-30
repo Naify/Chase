@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ChaseHealthActorComponent.h"
+
+#include "ChaseGameInstance.h"
 #include "GameFramework/Actor.h"
 
 UChaseHealthActorComponent::UChaseHealthActorComponent()
@@ -12,6 +14,12 @@ void UChaseHealthActorComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
+	const auto GameInstance = GetWorld()->GetGameInstance<UChaseGameInstance>();
+	if (!GameInstance) return;
+	
+	//Get from GameInstance because components begin play runs earlier than GameMode's
+	MaxHealth = GameInstance->GetGameSettings().NPCMaxHealth;
+	
 	CurrentHealth = MaxHealth;
 	OnHealthChanged.Broadcast(CurrentHealth);
 

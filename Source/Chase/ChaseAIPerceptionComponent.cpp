@@ -24,6 +24,7 @@ AActor* UChaseAIPerceptionComponent::GetClosestEnemy()
 
 	for (auto Actor : SawActors)
 	{
+		//Only those with chase health will be considered
 		const auto ChaseHealthActorComponent = Actor->FindComponentByClass<UChaseHealthActorComponent>();
 		if (!ChaseHealthActorComponent) continue;
 		
