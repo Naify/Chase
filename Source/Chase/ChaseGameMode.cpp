@@ -11,6 +11,11 @@ AChaseGameMode::AChaseGameMode()
 void AChaseGameMode::StartPlay()
 {
 	Super::StartPlay();
+
+	const auto GameInstance = GetWorld()->GetGameInstance<UChaseGameInstance>();
+	if (!GameInstance) return;
+	
+	GameSettings = GameInstance->GetGameSettings();
 	
 	SpawnNPCs();
 }
