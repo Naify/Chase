@@ -4,6 +4,7 @@
 #include "PlayerCharacter.h"
 
 #include "Chase/ChaseGameInstance.h"
+#include "Chase/Components/ChaseAIPerceptionComponent.h"
 #include "Chase/Components/ChaseWeaponComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -12,6 +13,7 @@ APlayerCharacter::APlayerCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	WeaponComponent = CreateDefaultSubobject<UChaseWeaponComponent>("WeaponComponent");
+	PerceptionComponent = CreateDefaultSubobject<UChaseAIPerceptionComponent>("PerceptionComponent");
 }
 
 void APlayerCharacter::BeginPlay()
@@ -27,7 +29,6 @@ void APlayerCharacter::BeginPlay()
 void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 

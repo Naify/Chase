@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
 
+class UChaseAIPerceptionComponent;
 class UChaseWeaponComponent;
 
 UCLASS()
@@ -22,7 +23,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Components")
 	UChaseWeaponComponent* WeaponComponent;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Components")
+	UChaseAIPerceptionComponent* PerceptionComponent;
+	
 public:	
 	virtual void Tick(float DeltaTime) override;
-
 };
