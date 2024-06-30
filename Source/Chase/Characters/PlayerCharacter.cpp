@@ -2,7 +2,10 @@
 
 
 #include "PlayerCharacter.h"
-#include "ChaseWeaponComponent.h"
+
+#include "Chase/ChaseGameInstance.h"
+#include "Chase/Components/ChaseWeaponComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -14,7 +17,11 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	const auto GameInstance = GetWorld()->GetGameInstance<UChaseGameInstance>();
+	if (!GameInstance) return;
 	
+	GetCharacterMovement()->MaxWalkSpeed = GameInstance->GetGameSettings().PlayersSpeed;
 }
 
 void APlayerCharacter::Tick(float DeltaTime)

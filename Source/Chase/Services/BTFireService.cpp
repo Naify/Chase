@@ -4,7 +4,7 @@
 #include "BTFireService.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "AIController.h"
-#include "ChaseWeaponComponent.h"
+#include "Chase/Components/ChaseWeaponComponent.h"
 
 UBTFireService::UBTFireService()
 {

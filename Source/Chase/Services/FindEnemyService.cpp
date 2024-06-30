@@ -4,7 +4,7 @@
 #include "FindEnemyService.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "AIController.h"
-#include "ChaseAIPerceptionComponent.h"
+#include "Chase/Components/ChaseAIPerceptionComponent.h"
 
 UFindEnemyService::UFindEnemyService()
 {

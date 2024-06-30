@@ -6,7 +6,8 @@
 #include "Components/CapsuleComponent.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
-#include "ChaseGameMode.h"
+#include "Chase/ChaseGameMode.h"
+#include "Chase/ChaseGameInstance.h"
 
 UChaseWeaponComponent::UChaseWeaponComponent()
 {

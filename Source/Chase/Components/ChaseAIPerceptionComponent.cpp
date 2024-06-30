@@ -3,8 +3,8 @@
 
 #include "ChaseAIPerceptionComponent.h"
 #include "AIController.h"
-#include "ChaseGameInstance.h"
 #include "ChaseHealthActorComponent.h"
+#include "Chase/ChaseGameInstance.h"
 #include "Perception/AISense_Sight.h"
 
 void UChaseAIPerceptionComponent::BeginPlay()

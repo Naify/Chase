@@ -1,8 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ChaseHealthActorComponent.h"
-
-#include "ChaseGameInstance.h"
+#include "Chase/ChaseGameInstance.h"
 #include "GameFramework/Actor.h"
 
 UChaseHealthActorComponent::UChaseHealthActorComponent()
