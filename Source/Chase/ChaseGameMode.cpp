@@ -2,7 +2,6 @@
 
 #include "ChaseGameMode.h"
 #include "UObject/ConstructorHelpers.h"
-#include "AIController.h"
 
 AChaseGameMode::AChaseGameMode()
 {
@@ -12,7 +11,7 @@ AChaseGameMode::AChaseGameMode()
 void AChaseGameMode::StartPlay()
 {
 	Super::StartPlay();
-
+	
 	SpawnNPCs();
 }
 
