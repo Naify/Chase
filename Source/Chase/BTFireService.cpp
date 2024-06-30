@@ -22,14 +22,17 @@ void UBTFireService::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemo
 	if (Blackboard && EnemyActor)
 	{
 		EnemyLocation = EnemyActor->GetActorLocation();
-		// Blackboard->SetValueAsVector(FName("EnemyLocation"), EnemyLocation);
 		HasEnemyToShoot = true;
 	}	
 
 	if (Controller)
 	{
-		const auto WeaponComponent = Controller->GetPawn()->FindComponentByClass<UChaseWeaponComponent>();
-		if (WeaponComponent && HasEnemyToShoot)
+		//checking if enemy is in range for shooting
+		const auto PlayerPawn = Controller->GetPawn();
+		const auto WeaponComponent = PlayerPawn->FindComponentByClass<UChaseWeaponComponent>();
+		const bool IsInRange = FVector::Dist(PlayerPawn->GetActorLocation(), EnemyLocation) <= WeaponComponent->TraceDistance;
+
+		if (WeaponComponent && HasEnemyToShoot && IsInRange)
 		{
 			WeaponComponent->StartFire(EnemyLocation);
 		}
