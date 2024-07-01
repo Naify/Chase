@@ -27,9 +27,7 @@ void UChaseWeaponComponent::BeginPlay()
 }
 
 void UChaseWeaponComponent::StartFire(const FVector& EnemyLocation)
-{
-	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f = damage / %f = distance"), DamageAmount, TraceDistance));
-	
+{	
 	if (EnemyLocation == FVector::ZeroVector) return;
 	
 	USkeletalMeshComponent* Mesh = GetOwner()->FindComponentByClass<USkeletalMeshComponent>();
