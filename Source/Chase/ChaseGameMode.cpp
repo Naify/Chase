@@ -1,15 +1,40 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "ChaseGameMode.h"
-#include "ChaseCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
 AChaseGameMode::AChaseGameMode()
 {
-	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/ThirdPerson/Blueprints/BP_ThirdPersonCharacter"));
-	if (PlayerPawnBPClass.Class != NULL)
+
+}
+
+void AChaseGameMode::StartPlay()
+{
+	Super::StartPlay();
+
+	const auto GameInstance = GetWorld()->GetGameInstance<UChaseGameInstance>();
+	if (!GameInstance) return;
+	
+	GameSettings = GameInstance->GetGameSettings();
+	
+	SpawnNPCs();
+}
+
+void AChaseGameMode::SpawnNPCs()
+{
+	if (!GetWorld()) return;
+
+	for (int i = 0; i < GameSettings.NPCNumberToSpawn; i++)
 	{
-		DefaultPawnClass = PlayerPawnBPClass.Class;
+		//set collision spawn params and spawn npcs
+		FActorSpawnParameters SpawnInfo;
+		SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+		// Set initial location and rotation
+		FVector SpawnLocation = FVector(-720.0f, 540.0f, 222.0f); 
+		FRotator SpawnRotation = FRotator::ZeroRotator;
+		
+		GetWorld()->SpawnActor<APawn>(AIPawnClass, SpawnLocation, SpawnRotation, SpawnInfo);		
 	}
+	
 }

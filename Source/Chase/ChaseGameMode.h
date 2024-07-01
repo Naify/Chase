@@ -3,8 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ChaseGameInstance.h"
 #include "GameFramework/GameModeBase.h"
 #include "ChaseGameMode.generated.h"
+
+class AAIController;
 
 UCLASS(minimalapi)
 class AChaseGameMode : public AGameModeBase
@@ -13,6 +16,24 @@ class AChaseGameMode : public AGameModeBase
 
 public:
 	AChaseGameMode();
+
+	virtual void StartPlay() override;	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Game")
+	FGameSettings GameSettings;
+	
+protected:
+
+	UPROPERTY(EditDefaultsOnly, Category= "Game")
+	TSubclassOf<AAIController> AIControllerClass;
+
+	UPROPERTY(EditDefaultsOnly, Category= "Game")
+	TSubclassOf<APawn> AIPawnClass;	
+	
+	UPROPERTY(EditDefaultsOnly, Category= "Game")
+	FVector SpawnPoint = FVector(-720.0f, 540.0f, 222.0f);
+private:
+	void SpawnNPCs();
 };
 
 
